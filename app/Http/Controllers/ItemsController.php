@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use \App\Item;
+
 class ItemsController extends Controller
 {
     /**
@@ -44,6 +46,12 @@ class ItemsController extends Controller
                 $item->image_url = str_replace('?_ex=128x128', '', $rws_item['Item']['mediumImageUrls'][0]['imageUrl']);
                 $items[] = $item;
             }
+        }
+
+        return view('items.create', [
+            'keyword' => $keyword,
+            'items' => $items,
+        ]);
     }
 
     /**
@@ -65,7 +73,15 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        //
+      $item = Item::find($id);
+      $want_users = $item->want_users;
+      $have_users = $item->have_users;
+
+      return view('items.show', [
+          'item' => $item,
+          'want_users' => $want_users,
+          'have_users' => $have_users,
+      ]);
     }
 
     /**

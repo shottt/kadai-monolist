@@ -12,7 +12,7 @@
         </div>
     </div>
 @endsection
-
 @section('content')
-    テスト
-@endsectio
+    @include('items.items')
+    {!! $items->render() !!}
+@endsection
